@@ -1,0 +1,59 @@
+package portfolioProjects;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+
+public class PortfolioProject1 {
+  
+	//Creating an Instance of Firefox Browser. This could be replicated with any other browser like Chrome, Internet Explorer and so on.
+	
+	FirefoxDriver driver;
+	 String gitHubURL = "http://www.github.com";
+	 String facebookURL = "http://www.facebook.com";
+	
+		
+	 @BeforeTest
+	  public void beforeTest() {
+		 System.setProperty("webdriver.gecko.driver", "C:\\Users\\hidayah...\\geckodriver.exe"); //This file path is dependent on your driver file location
+			driver = new FirefoxDriver();
+			driver.manage().window().maximize();
+	  }
+	
+	@Test(priority=0)
+	  public void invokeBrowser() {
+		//This is to invoke the browser and to setup the browser to go to the first website.
+		
+		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+		driver.get(gitHubURL);
+		String titleOfThePage = driver.getTitle();
+		Assert.assertEquals(titleOfThePage, "The world’s leading software development platform · GitHub");
+  }
+ 
+	@Test(priority=1)
+		public void navigateCommands() {
+		//This is to practice the navigate commands to make the browser navigate to another website and back to the original
+		driver.navigate().to(facebookURL);
+		String currentURL = driver.getCurrentUrl();
+		System.out.println("The Current URL is " + currentURL);
+		driver.navigate().back();
+		
+		String returnURL = driver.getCurrentUrl();
+		System.out.println("The Current URL is " + returnURL);
+		driver.navigate().refresh();
+		driver.navigate().refresh();
+	}
+
+   @AfterTest
+  public void closeTheBrowser() {
+	   System.out.println("The browser will be closed now");
+	  driver.close();
+	  
+  }
+
+}
