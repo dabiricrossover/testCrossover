@@ -1,0 +1,77 @@
+package portfolioProjects;
+
+/*Test Steps
+	Step 1. Goto http://live.demoguru99.com/
+	Step 2. Verify Title of the page
+	Step 3. Click on ‘MOBILE’ menu
+	Step 4. In the list of all mobile , select ‘SORT BY’ dropdown as ‘name’
+	Step 5. Verify all products are sorted by name
+*/
+
+import java.io.File;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+import org.testng.Assert;
+import java.util.concurrent.TimeUnit;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+public class PortfolioProject3 {
+	  private WebDriver driver;
+	  private String baseUrl;
+	  public int scc = 0;
+	  private StringBuffer verificationErrors = new StringBuffer();
+
+	  @BeforeTest
+	public void BeforeTest() throws Exception {
+	    
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\hidayah\\Desktop\\Drivers\\chromedriver.exe"); //This depends on your local file path
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		
+		// Step 1 Goto http://live.demoguru99.com/
+	    baseUrl = "http://live.demoguru99.com/";
+	    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	  }
+	  
+	  @Test
+	  public void TestCase1() throws Exception {
+		
+	    driver.get(baseUrl); 
+	    
+		//Step 2. Verify Title of the page
+	    String demoSite  = driver.findElement(By.cssSelector("h2")).getText();
+	    System.out.println(demoSite);
+	    try {
+	      Assert.assertEquals("THIS IS DEMO SITE FOR   ", demoSite);
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }	    
+	    
+	    // Step 3. Click on ‘MOBILE’ menu
+	    driver.findElement(By.linkText("MOBILE")).click();	
+	    	    
+        // Step 4. In the list of all mobile , select ‘SORT BY’ dropdown as ‘name’		
+	    new Select(driver.findElement(By.cssSelector("select[title=\"Sort By\"]"))).selectByVisibleText("Name");
+	    
+	    // Step 5. Verify all products are sorted by name
+		// this will take a screen shot of the manager's page after a successful login
+	    scc = (scc+1);
+		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		String png = ("C:\\Users\\hidayah\\Desktop\\Live Project\\TestCase1\\Sorted Mobile Products" + scc + ".png");
+		FileUtils.copyFile(scrFile, new File(png));
+	    }	
+	  
+		@AfterTest
+		public void tearDown() throws InterruptedException{
+			Thread.sleep(3000);
+			driver.quit();
+	    }
+	
+	  
+	}
