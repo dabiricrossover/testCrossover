@@ -1,5 +1,7 @@
 package portfolioProjects;
 
+//Just adding comments to this to commit for test run.
+
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -27,18 +29,18 @@ Scenario:
 
 
 public class PortfolioProject2 {
-  
+
 	ChromeDriver driver;
 	String facebookURL = "http://www.fb.com";
-	
+
 	@BeforeTest
 	public void beforeTest() {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users...\\chromedriver.exe"); //This depends on your driver file location
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 	}
-	
-	
+
+
 	@Test(priority=0)
 	public void steps1through3() throws InterruptedException {
 		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
@@ -52,7 +54,7 @@ public class PortfolioProject2 {
 			e.printStackTrace();
 			System.out.println("The page was not successfully redirected");
 		}
-		
+
 	}
 	@Test(priority=1)
 	public void steps4through9() {
@@ -82,14 +84,14 @@ public class PortfolioProject2 {
 			genderSelection.click();
 			WebElement submitButton = driver.findElement(By.name("websubmit"));
 			submitButton.click();
-			
+
 			System.out.println("Account successfully created");
 		} catch (Exception b) {
 			System.out.println("Account was not successfully created");
 		}
-		
+
 	}
-	
+
 	@AfterTest
 	public void afterTest() throws InterruptedException {
 		System.out.println("The webpage will be closed now");

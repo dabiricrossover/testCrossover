@@ -5,8 +5,9 @@ package portfolioProjects;
 2. Click on ‘MOBILE’ menu
 3. In the list of all mobile , read the cost of Sony Xperia mobile (which is $100)
 4. Click on Sony Xperia mobile
-5. Read the Sony Xperia mobile from detail page. Product value in list and details page should be equal ($100). 
+5. Read the Sony Xperia mobile from detail page. Product value in list and details page should be equal ($100).
 */
+//Just adding comments to this to commit for test run.
 
 import org.testng.annotations.AfterTest;
 import org.testng.Assert;
@@ -19,49 +20,49 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class PortfolioProject4 {
 	  private WebDriver driver;
-	  private String baseUrl;	
-	  
+	  private String baseUrl;
+
 	@BeforeTest
 	public void BeforeTest() throws Exception {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\hidayah\\Desktop\\Drivers\\chromedriver.exe"); //Depends on your file path
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		
+
 	    baseUrl = "http://live.demoguru99.com/";
 	    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	  }
-	  
+
 	  @Test
 	  public void TestCase2() throws Exception {
-		
+
 		// 1. Go to http://live.demoguru99.com
-	    driver.get(baseUrl); 
-	    
+	    driver.get(baseUrl);
+
 	    // 2. Click on Mobile menu
-	    driver.findElement(By.linkText("MOBILE")).click();	
-	  
-	    // 3. In the list of all mobile , read the cost of Sony Xperia mobile (which is $100) 	    	      
+	    driver.findElement(By.linkText("MOBILE")).click();
+
+	    // 3. In the list of all mobile , read the cost of Sony Xperia mobile (which is $100)
 	    String XPeriaPrice = driver.findElement(By.cssSelector("#product-price-1 > span.price")).getText();
-	   
-	    // 4. Click on Sony Xperia mobile 	   
+
+	    // 4. Click on Sony Xperia mobile
 	    driver.findElement(By.id("product-collection-image-1")).click();
-	    
+
 	    // 5. Read the XPeria mobile price from details page
 	    String detailPrice = driver.findElement(By.cssSelector("span.price")).getText();
-	    	    
+
 	    //  Product price in list and details page should be equal ($100)
 	    try {
-	        Assert.assertEquals(XPeriaPrice, detailPrice); 
+	        Assert.assertEquals(XPeriaPrice, detailPrice);
 	        System.out.println("The prices are equal on both pages");
 	      } catch (Exception e) {
 	    	  e.printStackTrace();
 	      }
 	  }
-	
+
 	@AfterTest
 	public void tearDown() throws Exception {
 		Thread.sleep(3000);
 		driver.quit();
 	  }
-	
+
 	}
